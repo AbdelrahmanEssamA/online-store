@@ -1,27 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../hooks/UserContext";
 
 const ProductCard = ({ data }) => {
   const { title, price, image } = data;
-  const shorterText = (text) => {
-    return text.length > 25 ? text.substring(0, 25) + "..." : text;
+
+  const shortenText = (text, maxLength = 18) => {
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
   };
-  const token = localStorage.getItem("token");
+
+  const { authenticationData } = useContext(AuthContext);
 
   return (
-    <div className="bg-white py-4 px-6 rounded-2xl shadow-xl">
-      <img src={image} alt={title} className="w-full h-64" />
-      <h3 className="text-md font-bold mt-10 mb-2 text-mainColor">
-        {shorterText(title)}
-      </h3>
-      <span className="text-md font-semibold bg-green-500 text-white px-2 py-1 rounded-full">
-        ${price}
-      </span>
-      <br />
-      {token && (
-        <button className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-secondaryColor">
-          Add to Cart
-        </button>
-      )}
+    <div className="bg-white border border-gray-200 rounded-lg shadow-md  overflow-hidden transform transition-transform hover:scale-105 duration-300">
+      <img src={image} alt={title} className="w-full h-80 p-5" />
+      <div className="p-4">
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">
+          {shortenText(title)}
+        </h3>
+        <span className="text-lg font-semibold text-orange-600">${price}</span>
+        {authenticationData && (
+          <button className="mt-4 w-full bg-orange-500 text-white py-2 rounded-lg shadow-md hover:bg-orange-600 transition-colors">
+            Add to Cart
+          </button>
+        )}
+      </div>
     </div>
   );
 };

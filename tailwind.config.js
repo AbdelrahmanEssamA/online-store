@@ -6,8 +6,9 @@ module.exports = {
       colors: {
         mainColor: "#0064D2",
         secondaryColor: "#ffa500",
-        thirdColor: "#eaeaea",
-        background: "#CCE0F6",
+        thirdColor: "#FCBD01",
+        orangeJP: "#F1663A",
+        background: "#FAF8F7",
       },
     },
   },
